@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Delivery Time Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">🛵</span>
+        <div>
+          <h1>Delivery Time Predictor</h1>
+          <p class="tagline">ML-powered ETA for food orders</p>
+        </div>
+      </div>
+      <div id="systemStatus" class="status-badge" role="status">Checking system…</div>
+    </header>
+
+    <main class="layout">
+      <section class="card form-card">
+        <h2>Predict delivery time</h2>
+        <p class="hint">Enter order details. Our Random Forest model estimates total delivery minutes.</p>
+
+        <form id="predictForm" novalidate>
+          <div class="field-grid">
+            <label class="field">
+              <span>Distance (km)</span>
+              <input type="number" name="distance_km" min="0" max="50" step="0.01" required placeholder="e.g. 8.5">
+            </label>
+            <label class="field">
+              <span>Preparation time (min)</span>
+              <input type="number" name="preparation_time_min" min="0" max="120" required placeholder="e.g. 15">
+            </label>
+            <label class="field">
+              <span>Courier experience (years)</span>
+              <input type="number" name="courier_experience_yrs" min="0" max="30" step="0.5" required placeholder="e.g. 3">
+            </label>
+            <label class="field">
+              <span>Weather</span>
+              <select name="weather" required></select>
+            </label>
+            <label class="field">
+              <span>Traffic level</span>
+              <select name="traffic_level" required></select>
+            </label>
+            <label class="field">
+              <span>Time of day</span>
+              <select name="time_of_day" required></select>
+            </label>
+            <label class="field">
+              <span>Vehicle type</span>
+              <select name="vehicle_type" required></select>
+            </label>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              <span class="btn-text">Predict ETA</span>
+              <span class="btn-loader" hidden></span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="sampleBtn">Load sample order</button>
+          </div>
+        </form>
+
+        <div id="resultPanel" class="result-panel" hidden>
+          <p class="result-label">Estimated delivery time</p>
+          <p class="result-value"><span id="resultMinutes">—</span> <small>minutes</small></p>
+          <p class="result-note" id="resultNote"></p>
+        </div>
+        <p id="formError" class="error-msg" hidden></p>
+      </section>
+
+      <aside class="sidebar">
+        <section class="card metrics-card" id="metricsCard" hidden>
+          <h2>Model accuracy</h2>
+          <ul class="metrics-list" id="metricsList"></ul>
+        </section>
+        <section class="card history-card">
+          <div class="history-header">
+            <h2>Recent predictions</h2>
+            <button type="button" class="btn btn-small" id="refreshHistory">Refresh</button>
+          </div>
+          <div id="historyEmpty" class="empty-state">No predictions yet.</div>
+          <ul id="historyList" class="history-list"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p>Stack: HTML · CSS · JS · PHP · MySQL · Python (Scikit-learn)</p>
+    </footer>
+  </div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
